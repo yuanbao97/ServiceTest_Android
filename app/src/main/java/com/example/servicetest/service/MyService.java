@@ -1,5 +1,6 @@
 package com.example.servicetest.service;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -73,7 +75,17 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtil.e(TAG, "onStartCommand executed");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LogUtil.e(TAG, "onStartCommand executed");
+            }
+        }).start();
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long triggerAtTime = SystemClock.elapsedRealtime() + 2 * 1000;
+        Intent i = new Intent(this, MyService.class);
+        PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
         return super.onStartCommand(intent, flags, startId);
     }
 
