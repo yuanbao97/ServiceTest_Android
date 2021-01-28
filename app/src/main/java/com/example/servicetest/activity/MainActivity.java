@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.servicetest.R;
 import com.example.servicetest.service.MyService;
+import com.example.servicetest.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
             mDownloadBinder = (MyService.DownloadBinder) service;
             mDownloadBinder.startDownload();
             mDownloadBinder.getProgress();
-            Log.e(TAG, "onServiceConnected executed");
+            LogUtil.e(TAG, "onServiceConnected executed");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e(TAG, "onServiceDisconnected executed");
+            LogUtil.e(TAG, "onServiceDisconnected executed");
         }
     };
 

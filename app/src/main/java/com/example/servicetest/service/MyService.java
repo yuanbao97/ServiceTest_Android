@@ -36,9 +36,6 @@ public class MyService extends Service {
     private NotificationManager manager;
     private Notification notification;
 
-    public MyService() {
-    }
-
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
