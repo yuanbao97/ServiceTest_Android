@@ -16,17 +16,18 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.servicetest.R;
 import com.example.servicetest.activity.MainActivity;
+import com.example.servicetest.util.LogUtil;
 
 public class MyService extends Service {
 
     public class DownloadBinder extends Binder {
 
         public void startDownload() {
-            Log.e(TAG, "startDownload executed");
+            LogUtil.e(TAG, "startDownload executed");
         }
 
         public int getProgress() {
-            Log.e(TAG, "getProgress executed");
+            LogUtil.e(TAG, "getProgress executed");
             return 0;
         }
     }
@@ -44,7 +45,7 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(TAG, "onCreate executed");
+        LogUtil.e(TAG, "onCreate executed");
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -72,13 +73,13 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG, "onStartCommand executed");
+        LogUtil.e(TAG, "onStartCommand executed");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy executed");
+        LogUtil.e(TAG, "onDestroy executed");
     }
 }

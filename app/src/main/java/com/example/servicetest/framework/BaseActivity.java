@@ -63,7 +63,6 @@ public class BaseActivity extends AppCompatActivity {
 
     //隐藏软键盘并让editText失去焦点
     private void hideKeyboard(IBinder token) {
-        Log.e(getClass().getSimpleName(), "hideKeyboard");
         clearFocus();
         if (token != null) {
             //这里先获取InputMethodManager再调用他的方法来关闭软键盘
