@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.servicetest.R;
+import com.example.servicetest.service.MyIntentService;
 import com.example.servicetest.service.MyService;
 import com.example.servicetest.util.LogUtil;
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     Button bindServiceButton;
     @BindView(R.id.unbind_service_button)
     Button unbindServiceButton;
+    @BindView(R.id.start_intent_service_button)
+    Button startIntentServiceButton;
 
     private MyService.DownloadBinder mDownloadBinder;
 
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.start_service_button, R.id.stop_service_button, R.id.bind_service_button, R.id.unbind_service_button})
+    @OnClick({R.id.start_service_button, R.id.stop_service_button, R.id.bind_service_button, R.id.unbind_service_button, R.id.start_intent_service_button})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.start_service_button:
@@ -72,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.unbind_service_button:
                 unbindService(mConnection);
+                break;
+            case R.id.start_intent_service_button:
+                LogUtil.e(TAG, "Thread id is " + Thread.currentThread().getId());
+                Intent intentService = new Intent(this, MyIntentService.class);
+                startService(intentService);
                 break;
         }
     }
